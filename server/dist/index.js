@@ -8,11 +8,19 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const leadRoutes_1 = __importDefault(require("./routes/leadRoutes"));
 const config_1 = __importDefault(require("./config"));
+const express_rate_limit_1 = __importDefault(require("express-rate-limit"));
 // Initialize configuration values
 const { mongoURI, port } = (0, config_1.default)();
 const app = (0, express_1.default)();
 // Middleware
 app.use(body_parser_1.default.json());
+// Set up rate limiting
+const limiter = (0, express_rate_limit_1.default)({
+    windowMs: 15 * 60 * 1000,
+    max: 100,
+    message: "Too many requests from this IP, please try again later.",
+});
+app.use("/lead", limiter);
 // Connect to MongoDB
 mongoose_1.default
     .connect(mongoURI)

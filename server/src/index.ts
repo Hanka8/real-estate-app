@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import leadRoutes from "./routes/leadRoutes";
 import getConfig from "./config";
+import rateLimit from "express-rate-limit";
 
 // Initialize configuration values
 const { mongoURI, port } = getConfig();
@@ -11,6 +12,15 @@ const app = express();
 
 // Middleware
 app.use(bodyParser.json());
+
+// Set up rate limiting
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // Limit each IP to 100 requests per windowMs
+  message: "Too many requests from this IP, please try again later.",
+});
+
+app.use("/lead", limiter);
 
 // Connect to MongoDB
 mongoose
