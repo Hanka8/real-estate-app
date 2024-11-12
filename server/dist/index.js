@@ -19,7 +19,7 @@ mongoose_1.default
     .then(() => console.log("MongoDB connected"))
     .catch((err) => console.log("MongoDB connection error:", err));
 // Routes
-app.use("/api", leadRoutes_1.default);
+app.use("/lead", leadRoutes_1.default);
 // Sample route to check if the server is running
 app.get("/", (req, res) => {
     res.send("Server is running");

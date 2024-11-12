@@ -1,9 +1,9 @@
 import request from "supertest";
 import app from "../dist/index.js";
 
-describe("POST /api/lead", () => {
+describe("POST /lead", () => {
   it("should create a new lead", async () => {
-    const response = await request(app).post("/api/lead").send({
+    const response = await request(app).post("/lead").send({
       estateType: "Apartment",
       fullName: "Jane Doe",
       phone: "987654321",
@@ -17,7 +17,7 @@ describe("POST /api/lead", () => {
   });
 
   it("should return error for invalid phone", async () => {
-    const response = await request(app).post("/api/lead").send({
+    const response = await request(app).post("/lead").send({
       estateType: "Apartment",
       fullName: "Jane Doe",
       phone: "123", // Invalid phone number

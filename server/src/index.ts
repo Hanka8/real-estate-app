@@ -19,7 +19,7 @@ mongoose
   .catch((err) => console.log("MongoDB connection error:", err));
 
 // Routes
-app.use("/api", leadRoutes);
+app.use("/lead", leadRoutes);
 
 // Sample route to check if the server is running
 app.get("/", (req: Request, res: Response) => {
