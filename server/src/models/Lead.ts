@@ -1,8 +1,8 @@
 import mongoose, { Schema, Document } from "mongoose";
 
-// Define interface for Lead document
+// Define interface for Lead document 
 interface ILead extends Document {
-  estateType: string;
+  estateType: "byt" | "dům" | "pozemek";
   fullName: string;
   phone: string;
   email: string;

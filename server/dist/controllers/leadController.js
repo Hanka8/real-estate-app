@@ -14,19 +14,59 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createLead = void 0;
 const Lead_1 = __importDefault(require("../models/Lead"));
+const zod_1 = require("zod"); // validation
+const xss_1 = __importDefault(require("xss")); // sanitization
+// Define a Zod schema for lead input validation
+const leadSchema = zod_1.z.object({
+    estateType: zod_1.z.enum(["byt", "dům", "pozemek"], {
+        errorMap: () => ({
+            message: "Estate type must be one of 'byt', 'dům', or 'pozemek'.",
+        }),
+    }),
+    fullName: zod_1.z
+        .string()
+        .min(1, "Name must contain at least 1 character")
+        .max(100, "Name is too long."),
+    phone: zod_1.z.string().regex(/^\+420\d{9}$/, "Invalid phone number format."),
+    email: zod_1.z
+        .string()
+        .email("Invalid email format.")
+        .max(100, "Email is too long."),
+    region: zod_1.z
+        .string()
+        .min(1, "Region must contain at least 1 character")
+        .max(100, "Region is too long."),
+    district: zod_1.z
+        .string()
+        .min(1, "Region must contain at least 1 character")
+        .max(100, "District is too long.")
+});
 // Create Lead
 const createLead = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { estateType, fullName, phone, email, region, district } = req.body;
-    // Basic validation for email and phone (you can enhance this further)
-    const phoneRegex = /^\d{9}$/; // Validates Czech phone numbers
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    // very basic validation for phone and email - enhance it further
-    if (!phoneRegex.test(phone)) {
-        return res.status(400).json({ error: "Invalid phone number format." });
+    // Sanitize inputs before validation to prevent XSS
+    const sanitizedData = {
+        estateType: (0, xss_1.default)(req.body.estateType),
+        fullName: (0, xss_1.default)(req.body.fullName),
+        phone: (0, xss_1.default)(req.body.phone),
+        email: (0, xss_1.default)(req.body.email),
+        region: (0, xss_1.default)(req.body.region),
+        district: (0, xss_1.default)(req.body.district),
+    };
+    // Validate request body using the leadSchema (safeParse doesn't throw an error)
+    // containing either the successfully parsed data or a ZodError instance containing detailed information about the validation problems
+    const validationResult = leadSchema.safeParse(sanitizedData);
+    if (!validationResult.success) {
+        // Extract and send validation errors
+        const errors = validationResult.error.issues.map((issue) => {
+            return {
+                field: issue.path.join("."),
+                message: issue.message,
+            };
+        });
+        console.log(errors);
+        return res.status(400).json({ errors });
     }
-    if (!emailRegex.test(email)) {
-        return res.status(400).json({ error: "Invalid email format." });
-    }
+    let { estateType, fullName, phone, email, region, district } = validationResult.data;
     try {
         // Create a new Lead document in the database
         const newLead = new Lead_1.default({
@@ -43,6 +83,7 @@ const createLead = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         res.status(201).json(newLead);
     }
     catch (error) {
+        console.error(error);
         res.status(500).json({ error: "Something went wrong. Please try again." });
     }
 });
