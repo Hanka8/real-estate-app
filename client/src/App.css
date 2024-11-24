@@ -1,7 +1,22 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
+.custom-color-1 {
+  color: #182b4a;
+}
+
+.custom-color-2 {
+  color: #748498;
+}
+
+.poppins {
+  font-family: 'Poppins', sans-serif;
+}
+
+.noto-sans {
+  font-family: 'Noto Sans', sans-serif;
+}
 
 .region:hover {
   fill: #3b82f6 !important; /* Change the color on hover */

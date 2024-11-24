@@ -52,7 +52,7 @@ const FormContact = () => {
           {...register("phone", {
             required: "Telefoní číslo je povinné",
             pattern: {
-              value: /^\+420\d{9}$/,
+              value: /^\d{9}$/,
               message: "Neplatné telefoní číslo",
             },
             maxLength: { value: 100, message: "Maximální délka je 100 znaků" },

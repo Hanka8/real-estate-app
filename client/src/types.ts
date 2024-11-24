@@ -1,8 +1,10 @@
-export type FormLocationProps = {
+import { Dispatch, SetStateAction } from 'react';
+import { UseFormSetValue } from 'react-hook-form';
+
+export interface FormLocationProps {
   propertyType: string;
-  region: string;
-  district: string;
-};
+  district?: string;
+}
 
 export type FormContactProps = {
   fullName: string;
@@ -10,14 +12,14 @@ export type FormContactProps = {
   email: string;
 };
 
-export type MapFormProps = {
+export type RegionSelectProps = {
   selectedRegion: string;
-  setSelectedRegion: (region: string) => void;
+  setSelectedRegion: Dispatch<SetStateAction<RegionType>>;
 };
 
-export type DistrictFormProps = {
+export type DistrictSelectProps = {
   selectedRegion: RegionType;
-  setValue: (name: string, value: string) => void;
+  setValue: UseFormSetValue<FormLocationProps>;
 };
 
 export interface HandleRegionClickEvent

@@ -6,7 +6,7 @@ import FormContact from './components/FormContact'
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-100 flex items-center justify-center noto-sans">
         <Routes>
           <Route path="/" element={<Navigate to="/chci-nabidku" />} />
           <Route path="/chci-nabidku" element={<FormLocation />} />

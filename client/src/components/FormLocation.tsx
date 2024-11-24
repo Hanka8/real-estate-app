@@ -1,20 +1,22 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler, FormProvider } from "react-hook-form";
 import { FormLocationProps, RegionType } from "../types";
-import DistrictForm from "./DistrictForm";
-import MapForm from "./MapForm";
+import DistrictSelect from "./DistrictSelect";
+import RegionSelect from "./RegionSelect";
+import EstateTypeSelect from "./EstateTypeSelect";
 
 const FormLocation = () => {
-  const [selectedRegion, setSelectedRegion] = useState<RegionType>("Hlavní město Praha");
+  const [selectedRegion, setSelectedRegion] =
+    useState<RegionType>("Hlavní město Praha");
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    watch,
-    setValue,
-  } = useForm<FormLocationProps>();
+  const methods = useForm<FormLocationProps>({
+    defaultValues: {
+      propertyType: "",
+      district: "",
+    },
+  });
+  const { watch, setValue } = methods;
 
   const navigate = useNavigate();
 
@@ -23,52 +25,32 @@ const FormLocation = () => {
     navigate("/chci-nabidku/contact", {
       state: { ...data, region: selectedRegion, district },
     });
-    console.log({ ...data, region: selectedRegion, district });
   };
 
   return (
-    <div className="w-7/12 mx-auto bg-white p-8 rounded-lg shadow-md">
-      <h1 className="text-2xl font-bold mb-6">Kde se nachází vaše nemovitost?</h1>
-      <h2 className="text-lg font-bold mb-4">Základní informace</h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="mb-4">
-          <label
-            htmlFor="propertyType"
-            className="block text-gray-700 font-bold mb-2"
+    <div className="w-11/12 sm:w-10/12 max-w-screen-md mx-auto bg-white p-8 rounded-lg shadow-md mt-6 mb-6 sm:mb-8 sm:mt-8">
+      <h1 className="text-3xl font-bold mb-6 poppins custom-color-1">
+        Kde se nachází vaše nemovitost?
+      </h1>
+      <h2 className="text-lg font-bold mb-6 custom-color-2">
+        Vyberte typ nemovitosti, kraj a okres.
+      </h2>
+      <FormProvider {...methods}>
+        <form onSubmit={methods.handleSubmit(onSubmit)}>
+          <EstateTypeSelect />
+          <RegionSelect
+            selectedRegion={selectedRegion}
+            setSelectedRegion={setSelectedRegion}
+          />
+          <DistrictSelect selectedRegion={selectedRegion} setValue={setValue} />
+          <button
+            type="submit"
+            className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
-            Typ nemovitosti
-          </label>
-          <select
-            id="propertyType"
-            {...register("propertyType", {
-              required: "Vyberte typ nemovitosti",
-              validate: (value) =>
-                ["byt", "dům", "pozemek"].includes(value) ||
-                "Neplatný typ nemovitosti",
-            })}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            <option value="">Vyberte typ nemovitosti</option>
-            <option value="byt">Byt</option>
-            <option value="dům">Dům</option>
-            <option value="pozemek">Pozemek</option>
-          </select>
-          {errors.propertyType && (
-            <p className="text-red-500 text-sm mt-1">Chyba fromuláře</p>
-          )}
-        </div>
-        <MapForm
-          selectedRegion={selectedRegion}
-          setSelectedRegion={setSelectedRegion}
-        />
-        <DistrictForm selectedRegion={selectedRegion} setValue={setValue} />
-        <button
-          type="submit"
-          className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          Pokračovat
-        </button>
-      </form>
+            Pokračovat
+          </button>
+        </form>
+      </FormProvider>
     </div>
   );
 };

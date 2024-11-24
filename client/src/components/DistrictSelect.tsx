@@ -1,9 +1,12 @@
 import { useEffect } from "react";
-import { DistrictFormProps } from "../types";
+import { DistrictSelectProps } from "../types";
 import { useForm, Controller } from "react-hook-form";
 import { regionsData } from "../data/regionsData";
 
-const DistrictForm = ({ selectedRegion, setValue }: DistrictFormProps & { selectedRegion: keyof typeof regionsData }) => {
+const DistrictSelect = ({
+  selectedRegion,
+  setValue,
+}: DistrictSelectProps & { selectedRegion: keyof typeof regionsData }) => {
   const { control } = useForm({
     defaultValues: {
       district: "",
@@ -24,9 +27,7 @@ const DistrictForm = ({ selectedRegion, setValue }: DistrictFormProps & { select
     <div style={{ marginTop: "20px" }}>
       {selectedRegion && (
         <>
-          <label className="block text-gray-700 font-bold mb-2">
-            Vybraný okres:
-          </label>
+          <label className="block text-gray-700 font-bold mb-2">Okres:</label>
           <div className="space-y-2">
             {/* Use Controller to manage the radio buttons */}
             <Controller
@@ -63,4 +64,4 @@ const DistrictForm = ({ selectedRegion, setValue }: DistrictFormProps & { select
   );
 };
 
-export default DistrictForm;
+export default DistrictSelect;
