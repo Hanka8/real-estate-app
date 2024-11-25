@@ -15,14 +15,11 @@ export type FormContactProps = {
 export type RegionSelectProps = {
   selectedRegion: string;
   setSelectedRegion: Dispatch<SetStateAction<RegionType>>;
-  initialRegion: boolean;
-  setInitialRegion: Dispatch<SetStateAction<boolean>>;
 };
 
 export type DistrictSelectProps = {
   selectedRegion: RegionType;
   setValue: UseFormSetValue<FormLocationProps>;
-  initialRegion: boolean;
 };
 
 export interface HandleRegionClickEvent
@@ -32,7 +29,7 @@ export interface HandleRegionClickEvent
   };
 }
 
-export type RegionType =
+export type RegionType = 
   | "Hlavní město Praha"
   | "Středočeský kraj"
   | "Jihočeský kraj"
@@ -46,4 +43,5 @@ export type RegionType =
   | "Jihomoravský kraj"
   | "Olomoucký kraj"
   | "Zlínský kraj"
-  | "Moravskoslezský kraj";
+  | "Moravskoslezský kraj"
+  | "";

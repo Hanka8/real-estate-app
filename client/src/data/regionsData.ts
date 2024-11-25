@@ -90,4 +90,5 @@ export const regionsData = {
     "Nový Jičín",
     "Ostrava-město",
   ],
+  "": [""],
 };

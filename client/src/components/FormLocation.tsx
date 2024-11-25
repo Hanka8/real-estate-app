@@ -7,9 +7,7 @@ import RegionSelect from "./RegionSelect";
 import EstateTypeSelect from "./EstateTypeSelect";
 
 const FormLocation = () => {
-  const [selectedRegion, setSelectedRegion] =
-    useState<RegionType>("Hlavní město Praha");
-  const [initialRegion, setInitialRegion] = useState<boolean>(true);
+  const [selectedRegion, setSelectedRegion] = useState<RegionType>("");
 
   const methods = useForm<FormLocationProps>({
     defaultValues: {
@@ -42,13 +40,12 @@ const FormLocation = () => {
           <RegionSelect
             selectedRegion={selectedRegion}
             setSelectedRegion={setSelectedRegion}
-            initialRegion={initialRegion}
-            setInitialRegion={setInitialRegion}
+
           />
           <DistrictSelect
             selectedRegion={selectedRegion}
             setValue={setValue}
-            initialRegion={initialRegion}
+       
           />
           <button
             type="submit"

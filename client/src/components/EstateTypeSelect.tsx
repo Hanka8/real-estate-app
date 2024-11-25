@@ -119,10 +119,10 @@ const EstateTypeSelect = () => {
             <span className="text-sm sm:text-base">Pozemek</span>
           </label>
         </div>
-        {errors?.propertyType && (
-          <p className="text-red-500 text-sm mt-1">Chyba formuláře</p>
-        )}
       </div>
+      {errors?.propertyType && (
+        <p className="text-red-500 text-sm mt-1">Nezapomeňte vybrat typ nemovitosti</p>
+      )}
     </div>
   );
 };

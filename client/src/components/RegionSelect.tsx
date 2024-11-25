@@ -7,8 +7,7 @@ import {
 const RegionSelect = ({
   selectedRegion,
   setSelectedRegion,
-  initialRegion,
-  setInitialRegion,
+
 }: RegionSelectProps) => {
   const pathStyles = {
     fill: "#ffffff",
@@ -25,7 +24,7 @@ const RegionSelect = ({
     const previousSelectedRegion = document.querySelector(
       `path[data-name="${selectedRegion}"]`
     ) as SVGPathElement;
-    setInitialRegion(false);
+
     if (previousSelectedRegion) previousSelectedRegion.style.fill = "#ffffff";
     if (regionName) setSelectedRegion(regionName as RegionType);
   };
@@ -33,7 +32,7 @@ const RegionSelect = ({
   return (
     <div className="mb-6">
       <h1 className="block text-gray-700 font-bold mb-4">
-        Vyberte kraj: {!initialRegion && selectedRegion}
+        Vyberte kraj: {selectedRegion}
       </h1>
       <svg
         width="100%"
