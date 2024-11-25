@@ -24,10 +24,10 @@ const DistrictSelect = ({
   const districts = selectedRegion ? regionsData[selectedRegion] : [];
 
   return (
-    <div style={{ marginTop: "20px" }}>
+    <div className="mb-6">
       {selectedRegion && (
         <>
-          <label className="block text-gray-700 font-bold mb-2">Okres:</label>
+          <label className="block text-gray-700 font-bold mb-4">Okres:</label>
           <div className="space-y-2">
             {/* Use Controller to manage the radio buttons */}
             <Controller

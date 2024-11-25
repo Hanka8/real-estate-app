@@ -1,8 +1,10 @@
+import { set } from "react-hook-form";
 import {
   RegionSelectProps,
   HandleRegionClickEvent,
   RegionType,
 } from "../types";
+import { useState } from "react";
 
 const RegionSelect = ({
   selectedRegion,
@@ -16,6 +18,8 @@ const RegionSelect = ({
     cursor: "pointer",
   };
 
+  const [initialRegion, setInitialRegion] = useState<boolean>(true);
+
   const handleRegionClick = (e: HandleRegionClickEvent) => {
     const regionName = e.target.getAttribute("data-name");
     e.target.style.fill = "#3b82f6";
@@ -23,14 +27,15 @@ const RegionSelect = ({
     const previousSelectedRegion = document.querySelector(
       `path[data-name="${selectedRegion}"]`
     ) as SVGPathElement;
+    setInitialRegion(false);
     if (previousSelectedRegion) previousSelectedRegion.style.fill = "#ffffff";
     if (regionName) setSelectedRegion(regionName as RegionType);
   };
 
   return (
-    <div className="mb-4">
-      <h1 className="block text-gray-700 font-bold mb-2">
-        Kraj: {selectedRegion}
+    <div className="mb-6">
+      <h1 className="block text-gray-700 font-bold mb-4">
+        Kraj: {!initialRegion && selectedRegion}
       </h1>
       <svg
         width="100%"

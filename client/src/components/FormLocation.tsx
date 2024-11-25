@@ -28,8 +28,8 @@ const FormLocation = () => {
   };
 
   return (
-    <div className="w-11/12 sm:w-10/12 max-w-screen-md mx-auto bg-white p-8 rounded-lg shadow-md mt-6 mb-6 sm:mb-8 sm:mt-8">
-      <h1 className="text-3xl font-bold mb-6 poppins custom-color-1">
+    <div className="w-11/12 sm:w-10/12 max-w-screen-md mx-auto bg-white p-8 rounded-lg shadow-md mt-4 sm:mt-6 mb-4 sm:mb-6 sm:mb-8 sm:mt-8 custom-color-1">
+      <h1 className="text-xl sm:text-3xl font-bold mb-4 sm:mb-6 poppins">
         Kde se nachází vaše nemovitost?
       </h1>
       <h2 className="text-lg font-bold mb-6 custom-color-2">
