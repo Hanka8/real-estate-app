@@ -19,7 +19,7 @@ const EstateTypeSelect = () => {
   return (
     <div className="mb-6">
       <label className="block text-gray-700 font-bold mb-4">
-        Typ nemovitosti:
+        Vyberte typ nemovitosti:
       </label>
       <div className="flex justify-around mb-4">
         <div className="flex flex-col items-center">

@@ -1,4 +1,3 @@
-import { set } from "react-hook-form";
 import {
   RegionSelectProps,
   HandleRegionClickEvent,
@@ -35,7 +34,7 @@ const RegionSelect = ({
   return (
     <div className="mb-6">
       <h1 className="block text-gray-700 font-bold mb-4">
-        Kraj: {!initialRegion && selectedRegion}
+        Vyberte kraj: {!initialRegion && selectedRegion}
       </h1>
       <svg
         width="100%"
