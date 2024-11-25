@@ -8,19 +8,20 @@ const DistrictSelect = ({
   setValue,
   initialRegion,
 }: DistrictSelectProps & { selectedRegion: keyof typeof regionsData }) => {
-  const { control } = useForm({
+  const { control, reset } = useForm({
     defaultValues: {
       district: "",
     },
   });
 
-  // Update the districts when the selected region changes
   useEffect(() => {
     if (selectedRegion) {
       // Reset selected district when the region changes
-      setValue("district", "");
+      reset({
+        district: "", 
+      });
     }
-  }, [selectedRegion, setValue]);
+  }, [selectedRegion, reset]);
 
   const districts = selectedRegion ? regionsData[selectedRegion] : [];
 

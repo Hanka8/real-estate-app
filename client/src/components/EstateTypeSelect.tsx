@@ -5,7 +5,7 @@ const EstateTypeSelect = () => {
   const methods = useFormContext<FormLocationProps>();
 
   if (!methods) {
-    return null; // or some fallback UI
+    return null; 
   }
 
   const {
@@ -34,8 +34,10 @@ const EstateTypeSelect = () => {
           />
           <label
             htmlFor="byt"
-            className={`text-center cursor-pointer md:min-w-32 sm:min-w-28 min-w-20 p-2 sm:p-4 md:p-8 rounded-lg transition-shadow duration-300 ease-in-out shadow-lg border-2 border-gray-300 hover:border-[#3b82f6] ${
-              selectedType === "byt" ? "bg-blue-100 border-[#3b82f6]" : ""
+            className={`text-center cursor-pointer md:min-w-32 sm:min-w-28 min-w-20 p-2 sm:p-4 md:p-8 rounded-lg transition-shadow duration-300 ease-in-out shadow-lg border-2 hover:border-[#3b82f6] ${
+              selectedType === "byt"
+                ? "bg-blue-100 border-[#3b82f6]"
+                : "border-gray-300"
             }`}
           >
             <svg
@@ -63,8 +65,10 @@ const EstateTypeSelect = () => {
           />
           <label
             htmlFor="dům"
-            className={`text-center cursor-pointer md:min-w-32 sm:min-w-28 min-w-20 p-2 sm:p-4 md:p-8 rounded-lg transition-shadow duration-300 ease-in-out shadow-lg border-2 border-gray-300 hover:border-[#3b82f6] ${
-              selectedType === "dům" ? "bg-blue-100 border-[#3b82f6]" : ""
+            className={`text-center cursor-pointer md:min-w-32 sm:min-w-28 min-w-20 p-2 sm:p-4 md:p-8 rounded-lg transition-shadow duration-300 ease-in-out shadow-lg border-2 hover:border-[#3b82f6] ${
+              selectedType === "dům"
+                ? "bg-blue-100 border-[#3b82f6]"
+                : "border-gray-300"
             }`}
           >
             <svg
@@ -92,8 +96,10 @@ const EstateTypeSelect = () => {
           />
           <label
             htmlFor="pozemek"
-            className={`text-center cursor-pointer md:min-w-32 sm:min-w-28 min-w-20 p-2 sm:p-4 md:p-8 rounded-lg transition-shadow duration-300 ease-in-out shadow-lg border-2 border-gray-300 hover:border-[#3b82f6] ${
-              selectedType === "pozemek" ? "bg-blue-100 border-[#3b82f6]" : ""
+            className={`text-center cursor-pointer md:min-w-32 sm:min-w-28 min-w-20 p-2 sm:p-4 md:p-8 rounded-lg transition-shadow duration-300 ease-in-out shadow-lg border-2 hover:border-[#3b82f6] ${
+              selectedType === "pozemek"
+                ? "bg-blue-100 border-[#3b82f6]"
+                : "border-gray-300"
             }`}
           >
             <svg
