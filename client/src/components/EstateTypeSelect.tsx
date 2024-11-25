@@ -14,7 +14,7 @@ const EstateTypeSelect = () => {
     formState: { errors },
   } = methods;
 
-  const selectedType = watch("propertyType");
+  const selectedType = watch("estateType");
 
   return (
     <div className="mb-6">
@@ -27,7 +27,7 @@ const EstateTypeSelect = () => {
             type="radio"
             id="byt"
             value="byt"
-            {...register("propertyType", {
+            {...register("estateType", {
               required: "Vyberte typ nemovitosti",
             })}
             className="hidden"
@@ -58,7 +58,7 @@ const EstateTypeSelect = () => {
             type="radio"
             id="dům"
             value="dům"
-            {...register("propertyType", {
+            {...register("estateType", {
               required: "Vyberte typ nemovitosti",
             })}
             className="hidden"
@@ -89,7 +89,7 @@ const EstateTypeSelect = () => {
             type="radio"
             id="pozemek"
             value="pozemek"
-            {...register("propertyType", {
+            {...register("estateType", {
               required: "Vyberte typ nemovitosti",
             })}
             className="hidden"
@@ -120,7 +120,7 @@ const EstateTypeSelect = () => {
           </label>
         </div>
       </div>
-      {errors?.propertyType && (
+      {errors?.estateType && (
         <p className="text-red-500 mt-2">Nezapomeňte vybrat typ nemovitosti</p>
       )}
     </div>

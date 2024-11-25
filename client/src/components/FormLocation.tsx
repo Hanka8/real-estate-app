@@ -12,7 +12,7 @@ const FormLocation = () => {
 
   const methods = useForm<FormLocationProps>({
     defaultValues: {
-      propertyType: "",
+      estateType: "",
       district: "",
     },
   });

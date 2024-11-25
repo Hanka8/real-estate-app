@@ -5,10 +5,10 @@ import { FormContactProps } from '../types';
 const FormContact = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<FormContactProps>();
   const location = useLocation();
-  const { propertyType, region, district } = location.state || {};
+  const { estateType, region, district } = location.state || {};
 
   const onSubmit: SubmitHandler<FormContactProps> = (data) => {
-    const fullData = { ...data, propertyType, region, district };
+    const fullData = { ...data, estateType, region, district };
     console.log(fullData);
     //send data to the server
     const URL = "https://real-estate-app-bgvb.onrender.com/lead";

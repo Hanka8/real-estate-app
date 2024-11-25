@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from 'react';
 import { UseFormSetValue } from 'react-hook-form';
 
 export interface FormLocationProps {
-  propertyType: string;
+  estateType: string;
   district?: string;
   region?: string;
 }
