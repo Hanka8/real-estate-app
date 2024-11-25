@@ -9,21 +9,38 @@ const FormContact = () => {
 
   const onSubmit: SubmitHandler<FormContactProps> = (data) => {
     const fullData = { ...data, propertyType, region, district };
-    // Submit fullData to API
     console.log(fullData);
+    //send data to the server
+    const URL = "https://real-estate-app-bgvb.onrender.com/lead";
+
+    fetch(URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(fullData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
 
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="bg-white p-6 rounded shadow-md w-full max-w-md"
+      className="w-11/12 sm:w-10/12 max-w-screen-md mx-auto bg-white p-8 rounded-lg shadow-md mt-4 sm:mt-6 mb-4 sm:mb-6 sm:mb-8 sm:mt-8 custom-color-1"
     >
-      <div className="mb-4">
-        <p className="text-gray-700">Typ nemovitosti: {propertyType}</p>
-        <p className="text-gray-700">Kraj: {region}</p>
-        <p className="text-gray-700">Okres: {district}</p>
-      </div>
-
+      <h1 className="text-xl sm:text-3xl font-bold mb-4 sm:mb-6 poppins">
+        Kde se nachází vaše nemovitost?
+      </h1>
+      <h2 className="text-lg font-bold mb-6 custom-color-2">
+        Zanechte nám prosím své kontaktní údaje, abychom vás mohli co nejdříve
+        kontaktovat.
+      </h2>
       <div className="mb-4">
         <label htmlFor="fullName" className="block text-gray-700">
           Celé jméno
@@ -35,7 +52,7 @@ const FormContact = () => {
             required: "Celé jméno je povinné",
             maxLength: { value: 100, message: "Maximální délka je 100 znaků" },
           })}
-          className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:border-white focus:ring-2 focus:ring-blue-500"
         />
         {errors.fullName && (
           <p className="text-red-500 text-sm mt-1">{errors.fullName.message}</p>
@@ -57,7 +74,7 @@ const FormContact = () => {
             },
             maxLength: { value: 100, message: "Maximální délka je 100 znaků" },
           })}
-          className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:border-white focus:ring-2 focus:ring-blue-500"
         />
         {errors.phone && (
           <p className="text-red-500 text-sm mt-1">{errors.phone.message}</p>
@@ -79,7 +96,7 @@ const FormContact = () => {
             },
             maxLength: { value: 100, message: "Maximální délka je 100 znaků" },
           })}
-          className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:border-white focus:ring-2 focus:ring-blue-500"
         />
         {errors.email && (
           <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
