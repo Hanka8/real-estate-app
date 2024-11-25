@@ -8,6 +8,7 @@ import EstateTypeSelect from "./EstateTypeSelect";
 
 const FormLocation = () => {
   const [selectedRegion, setSelectedRegion] = useState<RegionType>("");
+  const [error, setError] = useState<string | null>(null);
 
   const methods = useForm<FormLocationProps>({
     defaultValues: {
@@ -21,6 +22,15 @@ const FormLocation = () => {
 
   const onSubmit: SubmitHandler<FormLocationProps> = (data) => {
     const district = watch("district");
+    if (!selectedRegion) {
+      setError("Prosím, vyberte region.");
+      return;
+    }
+    if (!district) {
+      setError("Prosím, vyberte okres.");
+      return;
+    }
+    setError(null);
     navigate("/chci-nabidku/contact", {
       state: { ...data, region: selectedRegion, district },
     });
@@ -39,14 +49,19 @@ const FormLocation = () => {
           <EstateTypeSelect />
           <RegionSelect
             selectedRegion={selectedRegion}
-            setSelectedRegion={setSelectedRegion}
-
+            setSelectedRegion={(region) => {
+              setSelectedRegion(region);
+              setError(null);
+            }}
           />
           <DistrictSelect
             selectedRegion={selectedRegion}
-            setValue={setValue}
-       
+            setValue={(name, value) => {
+              setValue(name, value);
+              setError(null);
+            }}
           />
+          {error && <p className="text-red-500 mb-4">{error}</p>}
           <button
             type="submit"
             className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"

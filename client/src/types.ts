@@ -4,6 +4,7 @@ import { UseFormSetValue } from 'react-hook-form';
 export interface FormLocationProps {
   propertyType: string;
   district?: string;
+  region?: string;
 }
 
 export type FormContactProps = {

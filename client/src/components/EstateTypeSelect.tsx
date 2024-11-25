@@ -121,7 +121,7 @@ const EstateTypeSelect = () => {
         </div>
       </div>
       {errors?.propertyType && (
-        <p className="text-red-500 text-sm mt-1">Nezapomeňte vybrat typ nemovitosti</p>
+        <p className="text-red-500 mt-1">Nezapomeňte vybrat typ nemovitosti</p>
       )}
     </div>
   );
