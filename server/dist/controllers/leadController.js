@@ -27,7 +27,7 @@ const leadSchema = zod_1.z.object({
         .string()
         .min(1, "Name must contain at least 1 character")
         .max(100, "Name is too long."),
-    phone: zod_1.z.string().regex(/^\+420\d{9}$/, "Invalid phone number format."),
+    phone: zod_1.z.string().regex(/^\d{9}$/, "Invalid phone number format."),
     email: zod_1.z
         .string()
         .email("Invalid email format.")

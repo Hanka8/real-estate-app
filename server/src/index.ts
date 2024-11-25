@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 import leadRoutes from "./routes/leadRoutes";
 import getConfig from "./config";
 import rateLimit from "express-rate-limit";
+import cors from "cors";
 
 // Initialize configuration values
 const { mongoURI, port } = getConfig();
@@ -12,6 +13,22 @@ const app = express();
 
 // Middleware
 app.use(bodyParser.json());
+
+// Configure CORS
+const allowedOrigins = ["https://real-estate-form-654.netlify.app"];
+const corsOptions = {
+  origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  methods: "GET,POST",
+  allowedHeaders: "Content-Type",
+};
+
+app.use(cors(corsOptions));
 
 // Set up rate limiting
 const limiter = rateLimit({

@@ -9,11 +9,27 @@ const body_parser_1 = __importDefault(require("body-parser"));
 const leadRoutes_1 = __importDefault(require("./routes/leadRoutes"));
 const config_1 = __importDefault(require("./config"));
 const express_rate_limit_1 = __importDefault(require("express-rate-limit"));
+const cors_1 = __importDefault(require("cors"));
 // Initialize configuration values
 const { mongoURI, port } = (0, config_1.default)();
 const app = (0, express_1.default)();
 // Middleware
 app.use(body_parser_1.default.json());
+// Configure CORS
+const allowedOrigins = ["https://your-app-name.netlify.app"];
+const corsOptions = {
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        }
+        else {
+            callback(new Error("Not allowed by CORS"));
+        }
+    },
+    methods: "GET,POST,OPTIONS",
+    allowedHeaders: "Content-Type",
+};
+app.use((0, cors_1.default)(corsOptions));
 // Set up rate limiting
 const limiter = (0, express_rate_limit_1.default)({
     windowMs: 15 * 60 * 1000,
