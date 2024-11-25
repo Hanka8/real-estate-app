@@ -1,18 +1,16 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { FormContactProps } from '../types';
 
 const FormContact = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<FormContactProps>();
   const location = useLocation();
+  const navigate = useNavigate();
   const { estateType, region, district } = location.state || {};
 
   const onSubmit: SubmitHandler<FormContactProps> = (data) => {
     const fullData = { ...data, estateType, region, district };
-    console.log(fullData);
-    //send data to the server
     const URL = "https://real-estate-app-bgvb.onrender.com/lead";
-
     fetch(URL, {
       method: "POST",
       headers: {
@@ -20,9 +18,8 @@ const FormContact = () => {
       },
       body: JSON.stringify(fullData),
     })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Success:", data);
+      .then(() => {
+        navigate("/chci-nabidku/uspech");
       })
       .catch((error) => {
         console.error("Error:", error);
