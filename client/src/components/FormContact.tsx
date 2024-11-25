@@ -44,6 +44,7 @@ const FormContact = () => {
         </label>
         <input
           type="text"
+          placeholder='Např. "Jan Novák"'
           id="fullName"
           {...register("fullName", {
             required: "Celé jméno je povinné",
@@ -58,10 +59,11 @@ const FormContact = () => {
 
       <div className="mb-4">
         <label htmlFor="phone" className="block text-gray-700">
-          Telefoní číslo
+          Telefoní číslo (bez předvolby)
         </label>
         <input
           type="text"
+          placeholder='Např. "789654321"'
           id="phone"
           {...register("phone", {
             required: "Telefoní číslo je povinné",
@@ -84,6 +86,7 @@ const FormContact = () => {
         </label>
         <input
           type="email"
+          placeholder="Např. jan.novak@seznam.cz"
           id="email"
           {...register("email", {
             required: "Email je povinný",
