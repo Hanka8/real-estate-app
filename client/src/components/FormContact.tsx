@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FormContactProps } from '../types';
@@ -7,6 +8,7 @@ const FormContact = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { estateType, region, district } = location.state || {};
+  const [error, setError] = useState<string | null>(null);
 
   const onSubmit: SubmitHandler<FormContactProps> = (data) => {
     const fullData = { ...data, estateType, region, district };
@@ -23,6 +25,7 @@ const FormContact = () => {
       })
       .catch((error) => {
         console.error("Error:", error);
+        setError("Něco se pokazilo. Zkuste to prosím znovu.");
       });
   };
 
@@ -85,7 +88,7 @@ const FormContact = () => {
           Email
         </label>
         <input
-          type="email"
+          type="text"
           placeholder="Např. jan.novak@seznam.cz"
           id="email"
           {...register("email", {
@@ -102,7 +105,7 @@ const FormContact = () => {
           <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
         )}
       </div>
-
+      {error && <p className="text-red-500 mb-4">{error}</p>}
       <button
         type="submit"
         className="w-full bg-blue-500 text-white py-2 px-4 rounded-md"
