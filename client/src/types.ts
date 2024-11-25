@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import { UseFormSetValue, UseFormRegister } from "react-hook-form";
+import { UseFormSetValue, UseFormRegister, FieldErrors, useForm } from "react-hook-form";
 
 export type FormLocationProps = {
   estateType: string;
@@ -68,3 +68,14 @@ export type EstateTypeOptionProps = {
   label: string;
   svgProps: SvgProps;
 };
+
+export type FormInputProps = {
+  id: keyof FormContactProps;
+  label: string;
+  placeholder: string;
+  register: ReturnType<typeof useForm<FormContactProps>>["register"];
+  validation: object;
+  errors: FieldErrors<FormContactProps>;
+  type?: string;
+}
+
