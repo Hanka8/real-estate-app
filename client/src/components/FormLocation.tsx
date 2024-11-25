@@ -9,6 +9,7 @@ import EstateTypeSelect from "./EstateTypeSelect";
 const FormLocation = () => {
   const [selectedRegion, setSelectedRegion] =
     useState<RegionType>("Hlavní město Praha");
+  const [initialRegion, setInitialRegion] = useState<boolean>(true);
 
   const methods = useForm<FormLocationProps>({
     defaultValues: {
@@ -41,8 +42,14 @@ const FormLocation = () => {
           <RegionSelect
             selectedRegion={selectedRegion}
             setSelectedRegion={setSelectedRegion}
+            initialRegion={initialRegion}
+            setInitialRegion={setInitialRegion}
           />
-          <DistrictSelect selectedRegion={selectedRegion} setValue={setValue} />
+          <DistrictSelect
+            selectedRegion={selectedRegion}
+            setValue={setValue}
+            initialRegion={initialRegion}
+          />
           <button
             type="submit"
             className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"

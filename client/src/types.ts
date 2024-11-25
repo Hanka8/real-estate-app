@@ -15,11 +15,14 @@ export type FormContactProps = {
 export type RegionSelectProps = {
   selectedRegion: string;
   setSelectedRegion: Dispatch<SetStateAction<RegionType>>;
+  initialRegion: boolean;
+  setInitialRegion: Dispatch<SetStateAction<boolean>>;
 };
 
 export type DistrictSelectProps = {
   selectedRegion: RegionType;
   setValue: UseFormSetValue<FormLocationProps>;
+  initialRegion: boolean;
 };
 
 export interface HandleRegionClickEvent

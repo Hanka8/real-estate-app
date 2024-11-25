@@ -6,6 +6,7 @@ import { regionsData } from "../data/regionsData";
 const DistrictSelect = ({
   selectedRegion,
   setValue,
+  initialRegion,
 }: DistrictSelectProps & { selectedRegion: keyof typeof regionsData }) => {
   const { control } = useForm({
     defaultValues: {
@@ -25,7 +26,7 @@ const DistrictSelect = ({
 
   return (
     <div className="mb-6">
-      {selectedRegion && (
+        {(selectedRegion && !initialRegion) && (
         <>
           <label className="block text-gray-700 font-bold mb-4">Vyberte okres:</label>
           <div className="space-y-2">

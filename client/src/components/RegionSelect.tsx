@@ -3,11 +3,12 @@ import {
   HandleRegionClickEvent,
   RegionType,
 } from "../types";
-import { useState } from "react";
 
 const RegionSelect = ({
   selectedRegion,
   setSelectedRegion,
+  initialRegion,
+  setInitialRegion,
 }: RegionSelectProps) => {
   const pathStyles = {
     fill: "#ffffff",
@@ -16,8 +17,6 @@ const RegionSelect = ({
     transition: "fill 0.3s ease",
     cursor: "pointer",
   };
-
-  const [initialRegion, setInitialRegion] = useState<boolean>(true);
 
   const handleRegionClick = (e: HandleRegionClickEvent) => {
     const regionName = e.target.getAttribute("data-name");
