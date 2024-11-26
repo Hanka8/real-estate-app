@@ -1,10 +1,55 @@
 import { useState } from "react";
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { FormContactProps } from '../types';
+import { useForm, SubmitHandler } from "react-hook-form";
+import { useLocation, useNavigate } from "react-router-dom";
+import { FormContactProps, FormInputProps } from "../types";
+import FormInput from "./FormInput";
+
+const BASE_URL = "https://real-estate-app-bgvb.onrender.com/lead";
+
+const inputFields: Array<Omit<FormInputProps, "register" | "errors">> = [
+  {
+    id: "fullName",
+    label: "Celé jméno",
+    placeholder: 'Např. "Jan Novák"',
+    validation: {
+      required: "Celé jméno je povinné",
+      maxLength: { value: 100, message: "Maximální délka je 100 znaků" },
+    },
+  },
+  {
+    id: "phone",
+    label: "Telefoní číslo (bez předvolby)",
+    placeholder: 'Např. "789654321"',
+    validation: {
+      required: "Telefoní číslo je povinné",
+      pattern: {
+        value: /^\d{9}$/,
+        message: "Neplatné telefoní číslo",
+      },
+      maxLength: { value: 100, message: "Maximální délka je 100 znaků" },
+    },
+  },
+  {
+    id: "email",
+    label: "Email",
+    placeholder: "Např. jan.novak@seznam.cz",
+    validation: {
+      required: "Email je povinný",
+      pattern: {
+        value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+        message: "Neplatný email",
+      },
+      maxLength: { value: 100, message: "Maximální délka je 100 znaků" },
+    },
+  },
+];
 
 const FormContact = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm<FormContactProps>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormContactProps>();
   const location = useLocation();
   const navigate = useNavigate();
   const { estateType, region, district } = location.state || {};
@@ -12,21 +57,28 @@ const FormContact = () => {
 
   const onSubmit: SubmitHandler<FormContactProps> = (data) => {
     const fullData = { ...data, estateType, region, district };
-    const URL = "https://real-estate-app-bgvb.onrender.com/lead";
-    fetch(URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(fullData),
-    })
-      .then(() => {
+    const submitData = async () => {
+      try {
+        const response = await fetch(BASE_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(fullData),
+        });
+
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
         navigate("/chci-nabidku/uspech");
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error("Error:", error);
         setError("Něco se pokazilo. Zkuste to prosím znovu.");
-      });
+      }
+    };
+
+    submitData();
   };
 
   return (
@@ -41,70 +93,16 @@ const FormContact = () => {
         Zanechte nám prosím své kontaktní údaje, abychom vás mohli co nejdříve
         kontaktovat.
       </h2>
-      <div className="mb-4">
-        <label htmlFor="fullName" className="block text-gray-700">
-          Celé jméno
-        </label>
-        <input
-          type="text"
-          placeholder='Např. "Jan Novák"'
-          id="fullName"
-          {...register("fullName", {
-            required: "Celé jméno je povinné",
-            maxLength: { value: 100, message: "Maximální délka je 100 znaků" },
-          })}
-          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:border-white focus:ring-2 focus:ring-blue-500"
+      
+      {inputFields.map((field) => (
+        <FormInput
+          key={field.id}
+          {...field}
+          register={register}
+          errors={errors}
         />
-        {errors.fullName && (
-          <p className="text-red-500 text-sm mt-1">{errors.fullName.message}</p>
-        )}
-      </div>
+      ))}
 
-      <div className="mb-4">
-        <label htmlFor="phone" className="block text-gray-700">
-          Telefoní číslo (bez předvolby)
-        </label>
-        <input
-          type="text"
-          placeholder='Např. "789654321"'
-          id="phone"
-          {...register("phone", {
-            required: "Telefoní číslo je povinné",
-            pattern: {
-              value: /^\d{9}$/,
-              message: "Neplatné telefoní číslo",
-            },
-            maxLength: { value: 100, message: "Maximální délka je 100 znaků" },
-          })}
-          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:border-white focus:ring-2 focus:ring-blue-500"
-        />
-        {errors.phone && (
-          <p className="text-red-500 text-sm mt-1">{errors.phone.message}</p>
-        )}
-      </div>
-
-      <div className="mb-4">
-        <label htmlFor="email" className="block text-gray-700">
-          Email
-        </label>
-        <input
-          type="text"
-          placeholder="Např. jan.novak@seznam.cz"
-          id="email"
-          {...register("email", {
-            required: "Email je povinný",
-            pattern: {
-              value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-              message: "Neplatný email",
-            },
-            maxLength: { value: 100, message: "Maximální délka je 100 znaků" },
-          })}
-          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:outline-none focus:border-white focus:ring-2 focus:ring-blue-500"
-        />
-        {errors.email && (
-          <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
-        )}
-      </div>
       {error && <p className="text-red-500 mb-4">{error}</p>}
       <button
         type="submit"
@@ -114,6 +112,6 @@ const FormContact = () => {
       </button>
     </form>
   );
-}
+};
 
 export default FormContact;
