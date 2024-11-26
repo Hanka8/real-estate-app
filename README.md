@@ -40,7 +40,7 @@ A full-stack application for collecting and managing real estate leads. The appl
 
 - Node.js (v14 or higher)
 - MongoDB
-  . npm
+- npm
 
 ### Installation
 
@@ -48,7 +48,7 @@ A full-stack application for collecting and managing real estate leads. The appl
 
 `git clone git@github.com:Hanka8/real-estate-app.git`
 
-2. install server dependencies:
+2. Install server dependencies:
 
 ```
 cd server
@@ -88,18 +88,21 @@ npm run dev
 
 ### API Endpoints
 
+- GET /lead - Health check endpoint
 - POST /lead - Create a new lead
 
 Request body:
 
 ```
-CORS configuration with whitelisted origins
-Rate limiting
-Input validation and sanitization
-XSS protection
+{
+  "estateType": "byt|dům|pozemek",
+  "fullName": "string",
+  "phone": "string",
+  "email": "string",
+  "region": "string",
+  "district": "string"
+}
 ```
-
-- GET /lead - Health check endpoint
 
 ### Security features
 
@@ -111,11 +114,4 @@ XSS protection
 ### Deployment
 
 - Frontend is deployed on Netlify
-- Backend is deployed on Render{
-  "estateType": "byt|dům|pozemek",
-  "fullName": "string",
-  "phone": "string",
-  "email": "string",
-  "region": "string",
-  "district": "string"
-  }
+- Backend is deployed on Render
